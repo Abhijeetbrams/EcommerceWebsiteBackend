@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +22,18 @@ public class FakeStoreService implements ProductService{
 
     @Override
     public List<Product> getProducts() {
-        return null;
+        // Type Erasure - Since the Generics is compile time logic and we cannot define at runtime and it makes no sense,
+        // Thus List.class or List<FakeStoreDTO> will not work correctly.
+        // We need to store the response in Array
+        // List<FakeStoreDTO> fakeStoreDTOs = restTemplate.getForObject("https://fakestoreapi.com/products", List.class);
+
+        FakeStoreDTO[] fakeStoreDTOs = restTemplate.getForObject("http://localhost:8080/products", FakeStoreDTO[].class);
+        List<Product> products = new ArrayList<>();
+        for (FakeStoreDTO fakeStoreDTO : fakeStoreDTOs) {
+            products.add(convertFakeStoreDTOToProduct(fakeStoreDTO));
+        }
+
+        return products;
     }
 
     public Product getProduct(Long productId) {
