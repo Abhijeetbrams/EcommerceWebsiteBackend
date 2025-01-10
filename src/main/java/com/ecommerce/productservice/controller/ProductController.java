@@ -1,10 +1,14 @@
 package com.ecommerce.productservice.controller;
 
+
+import com.ecommerce.productservice.exception.OutOfRangeException;
 import com.ecommerce.productservice.model.Product;
 import com.ecommerce.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -24,9 +28,15 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable("id") Long productId) {
-        Product product= productService.getProduct(productId);
-        return product;
+    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId) throws Exception {
+        Product product=null;
+        try{
+            product = productService.getProduct(productId);
+        }catch(NullPointerException e){
+            throw new OutOfRangeException("Please enter in the range of product id between 1-20, your Id: "+productId);
+        }
+
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PostMapping
