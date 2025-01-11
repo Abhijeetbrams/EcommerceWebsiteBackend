@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleOutOfRangeException(OutOfRangeException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<String> handleProductNotFoundException(ProductNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

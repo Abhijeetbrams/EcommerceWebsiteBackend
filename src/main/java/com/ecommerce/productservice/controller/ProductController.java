@@ -5,6 +5,7 @@ import com.ecommerce.productservice.exception.OutOfRangeException;
 import com.ecommerce.productservice.model.Product;
 import com.ecommerce.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,11 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+
     ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("ProductDBService")ProductService productService) {
         this.productService = productService;
     }
 
