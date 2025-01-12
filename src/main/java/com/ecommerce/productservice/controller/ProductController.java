@@ -35,7 +35,7 @@ public class ProductController {
         try{
             product = productService.getProduct(productId);
         }catch(NullPointerException e){
-            throw new OutOfRangeException("Please enter in the range of product id between 1-20, your Id: "+productId);
+            throw new OutOfRangeException("Please enter in the range of product id between 1-20, Id typed: "+productId);
         }
 
         return new ResponseEntity<>(product, HttpStatus.OK);
