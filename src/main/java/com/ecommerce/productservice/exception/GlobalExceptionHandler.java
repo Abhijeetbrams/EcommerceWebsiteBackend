@@ -1,5 +1,6 @@
 package com.ecommerce.productservice.exception;
 
+import com.ecommerce.productservice.DTO.ResponseEntityDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,7 +25,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DataValidationException.class)
-    public ResponseEntity<String> handleDataValidationException(DataValidationException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<ResponseEntityDTO> handleDataValidationException(DataValidationException e) {
+        ResponseEntityDTO response = new ResponseEntityDTO();
+        response.setMessage(e.getMessage());
+        response.setCode(HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
     }
 }

@@ -2,6 +2,6 @@ package com.ecommerce.productservice.exception;
 
 public class DataValidationException extends RuntimeException {
     public DataValidationException(String message) {
-        System.out.println(message);
+        super(message);
     }
 }

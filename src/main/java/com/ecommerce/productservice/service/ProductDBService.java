@@ -40,15 +40,11 @@ public class ProductDBService implements ProductService{
         DataValidationDTO priceCheck = new DataValidationDTO("price","Product Price cannot be blank");
         DataValidationDTO categoryCheck = new DataValidationDTO("category","Product Category cannot be Null");
         DataValidationDTO imageCheck = new DataValidationDTO("image","Product Image cannot be blank");
-        DataValidationDTO createdAtCheck = new DataValidationDTO("createdAt","Created At is not in proper format");
-        DataValidationDTO updatedAtCheck = new DataValidationDTO("updatedAt","Updated At is not in proper format");
 
         stringDataValidationDTOS.add(titleCheck);
         numberDataValidationDTOS.add(priceCheck);
         objectDataValidationDTOS.add(categoryCheck);
         stringDataValidationDTOS.add(imageCheck);
-        numberDataValidationDTOS.add(createdAtCheck);
-        numberDataValidationDTOS.add(updatedAtCheck);
     }
 
     @Autowired
@@ -102,13 +98,17 @@ public class ProductDBService implements ProductService{
                     }else{
                         Optional<Category> category=categoryRepository.findById(value.getId());
                         if(category.isPresent()){
-                            if(category.get().getValue()!=value.getValue()){
+                            if(category.get().getValue() != value.getValue()){
                                 throw new DataValidationException("Category Value is not Equal to Category DB : "+ value.getValue());
+                            }else{
+                                categoryRepository.save(value);
                             }
                         }else{
                             categoryRepository.save(value);
                         }
                     }
+                }else{
+                    categoryRepository.save(value);
                 }
             }
         }
