@@ -42,7 +42,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public void addProduct(@RequestBody Product product) {}
+    public Product addProduct(@RequestBody Product product) {
+        return productService.addProduct(product);
+    }
 
     @PutMapping("/{id}")
     public void updateProduct(@PathVariable("id") Long productId, @RequestBody Product product) {}
