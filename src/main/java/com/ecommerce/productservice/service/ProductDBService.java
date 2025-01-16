@@ -11,6 +11,7 @@ import com.ecommerce.productservice.repository.ProductRepository;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
-
+@Primary
 @Service("ProductDBService")
 public class ProductDBService implements ProductService{
 
