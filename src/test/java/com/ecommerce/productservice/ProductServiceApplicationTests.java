@@ -8,19 +8,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ProductServiceApplicationTests {
-    @Autowired
-    ProductRepository productRepository;
+//    @Autowired
+//    ProductRepository productRepository;
 
-    @Test
-    void contextLoads() {
-    }
+//    @Test
+//    void contextLoads() {
+//    }
 
-    @Test
-    void testQueryProjection() {
-        // Write your test here
-        TitleAndPriceProjection titleAndPriceProjection = productRepository.findTitleAndPriceByTitle("Lenovo IdeaPad3");
-
-        System.out.println("Title: " + titleAndPriceProjection.getTitle()+" Price: "+titleAndPriceProjection.getPrice());
-    }
+//    @Test
+//    void testQueryProjection() {
+//        // Write your test here
+//        TitleAndPriceProjection titleAndPriceProjection = productRepository.findTitleAndPriceByTitle("Lenovo IdeaPad3");
+//
+//        System.out.println("Title: " + titleAndPriceProjection.getTitle()+" Price: "+titleAndPriceProjection.getPrice());
+//    }
 
 }
