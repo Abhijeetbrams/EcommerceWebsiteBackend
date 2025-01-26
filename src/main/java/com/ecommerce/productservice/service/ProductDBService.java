@@ -12,6 +12,8 @@ import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -54,8 +56,8 @@ public class ProductDBService implements ProductService{
     }
 
     @Override
-    public List<Product> getProducts() {
-      return productRepository.findAll();
+    public Page<Product> getProducts(int pageNumber, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageNumber,pageSize));
     }
 
     public Product getProduct(Long productId) {

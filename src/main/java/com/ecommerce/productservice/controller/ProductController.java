@@ -6,6 +6,7 @@ import com.ecommerce.productservice.model.Product;
 import com.ecommerce.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    public Page<Product> getProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize) {
+        return productService.getProducts(pageNumber, pageSize);
     }
 
     @GetMapping("/{id}")
