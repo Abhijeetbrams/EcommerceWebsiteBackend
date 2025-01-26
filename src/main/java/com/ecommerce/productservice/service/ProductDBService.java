@@ -16,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.data.domain.Sort;
+
 
 import javax.xml.crypto.Data;
 import java.lang.reflect.Method;
@@ -57,7 +59,7 @@ public class ProductDBService implements ProductService{
 
     @Override
     public Page<Product> getProducts(int pageNumber, int pageSize) {
-        return productRepository.findAll(PageRequest.of(pageNumber,pageSize));
+        return productRepository.findAll(PageRequest.of(pageNumber,pageSize,Sort.by("price").ascending()));
     }
 
     public Product getProduct(Long productId) {
