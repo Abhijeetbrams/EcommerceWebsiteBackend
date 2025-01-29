@@ -5,6 +5,7 @@ import com.ecommerce.productservice.model.Category;
 import com.ecommerce.productservice.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,10 +16,12 @@ import java.util.List;
 public class FakeStoreService implements ProductService{
 
     RestTemplate restTemplate;
+    RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public FakeStoreService(RestTemplate restTemplate) {
+    public FakeStoreService(RestTemplate restTemplate, RedisTemplate<String, Object> redisTemplate) {
         this.restTemplate = restTemplate;
+        this.redisTemplate= redisTemplate;
     }
 
     @Override
@@ -39,12 +42,24 @@ public class FakeStoreService implements ProductService{
     }
 
     public Product getProduct(Long productId) {
-        // This will help to make the API calls to the external parties
+        // Here we are fetching the product from the Redis Cache and since we're using same
+        // Redis Cluster thus we're mentioning PRODUCTS as the MAP name and product_product_id as the key
+        Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS","product_"+productId);
+
+        if(product != null) {
+            return product;
+        }
+
+        // If the product is not found in the Redis Cache then we will fetch it from the external API
         FakeStoreDTO fakeStoreDTO =
                 restTemplate.getForObject("https://fakestoreapi.com/products/"+ productId, FakeStoreDTO.class);
 
         // Convert FakeStoreDTO to Product
-         return convertFakeStoreDTOToProduct(fakeStoreDTO);
+        Product productFromApi = convertFakeStoreDTOToProduct(fakeStoreDTO);
+
+        redisTemplate.opsForHash().put("PRODUCTS","product_"+productId,productFromApi);
+        
+        return productFromApi;
     }
 
     public Product addProduct(Product product) {
