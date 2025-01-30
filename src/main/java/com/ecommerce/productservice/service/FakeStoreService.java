@@ -57,6 +57,7 @@ public class FakeStoreService implements ProductService{
         // Convert FakeStoreDTO to Product
         Product productFromApi = convertFakeStoreDTOToProduct(fakeStoreDTO);
 
+        // Here PRODUCTS is the MAP name and product_product_id is the key
         redisTemplate.opsForHash().put("PRODUCTS","product_"+productId,productFromApi);
         
         return productFromApi;
