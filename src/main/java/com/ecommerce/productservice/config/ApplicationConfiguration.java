@@ -1,5 +1,6 @@
 package com.ecommerce.productservice.config;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 // inside this class.
 public class ApplicationConfiguration {
     @Bean // Indicating to Spring that create a bean and store it into Application Context or Container
+    @LoadBalanced // This annotation is used to tell the Spring Cloud that this RestTemplate is used to call the services in a load balanced way.
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
