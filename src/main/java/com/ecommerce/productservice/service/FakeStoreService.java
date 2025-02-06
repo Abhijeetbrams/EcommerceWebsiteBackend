@@ -46,6 +46,8 @@ public class FakeStoreService implements ProductService{
         // Redis Cluster thus we're mentioning PRODUCTS as the MAP name and product_product_id as the key
         Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS","product_"+productId);
 
+
+        System.out.println("Fetching the product from the API");
         if(product != null) {
             return product;
         }
@@ -53,6 +55,7 @@ public class FakeStoreService implements ProductService{
         // If the product is not found in the Redis Cache then we will fetch it from the external API
         // For Load Balanced RestTemplate we need to use the service name instead of the URL, and Service name will be the
         // name of the service mentioned in the Service Registry.
+
         FakeStoreDTO fakeStoreDTO =
                 restTemplate.getForObject("https://fakestoreapi.com/products/"+ productId, FakeStoreDTO.class);
 
