@@ -30,7 +30,6 @@ public class FakeStoreService implements ProductService{
         // Thus List.class or List<FakeStoreDTO> will not work correctly.
         // We need to store the response in Array
         // List<FakeStoreDTO> fakeStoreDTOs = restTemplate.getForObject("https://fakestoreapi.com/products", List.class);
-
 //        FakeStoreDTO[] fakeStoreDTOs = restTemplate.getForObject("http://localhost:8080/products", FakeStoreDTO[].class);
 //        List<Product> products = new ArrayList<>();
 //        for (FakeStoreDTO fakeStoreDTO : fakeStoreDTOs) {
@@ -64,6 +63,7 @@ public class FakeStoreService implements ProductService{
         Product productFromApi = convertFakeStoreDTOToProduct(fakeStoreDTO);
 
         // Here PRODUCTS is the MAP name and product_product_id is the key
+        // We're storing the product in the Redis Cache
         redisTemplate.opsForHash().put("PRODUCTS","product_"+productId,productFromApi);
         
         return productFromApi;
