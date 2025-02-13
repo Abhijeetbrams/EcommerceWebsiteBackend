@@ -44,6 +44,7 @@ public class FakeStoreService implements ProductService{
         // Here we are fetching the product from the Redis Cache and since we're using same
         // Redis Cluster thus we're mentioning PRODUCTS as the MAP name and product_product_id as the key
         // to fetch the product from the Redis Cache.
+        // If the product is found in the Redis Cache then we will return the product from the Redis Cache.
         Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS","product_"+productId);
 
 
