@@ -81,6 +81,7 @@ public class ProductDBService implements ProductService{
             String value=(String)callGetter(product, fieldName);
 
             // Checking Null or Blank using StringUtils
+            // If the value is null or blank then throw DataValidationException
             if(StringUtils.isBlank(value)){
                 throw new DataValidationException(dataValidationDTO.getMessage());
             }
