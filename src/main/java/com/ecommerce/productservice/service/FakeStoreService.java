@@ -48,11 +48,11 @@ public class FakeStoreService implements ProductService{
         Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS","product_"+productId);
 
 
-        System.out.println("Fetching the product from the API");
         if(product != null) {
             return product;
         }
 
+        System.out.println("Fetching the product from the API");
         // If the product is not found in the Redis Cache then we will fetch it from the external API
         // For Load Balanced RestTemplate we need to use the service name instead of the URL, and Service name will be the
         // name of the service mentioned in the Service Registry.

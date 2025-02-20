@@ -27,10 +27,14 @@ public class ApplicationConfiguration {
     // Step 6 :- Use the Redis Template to fetch the data from Redis Cache.
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        // RedisTemplate is a class provided by Spring Data Redis. It provides the connection to Redis Server.
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        // Injecting the Redis Connection Factory into Redis Template. It is used to connect to Redis Server.
         redisTemplate.setConnectionFactory(redisConnectionFactory);
+        // Setting the Key Serializer to StringRedisSerializer. It is used to serialize the key.
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        // Setting the Value Serializer to GenericJackson2JsonRedisSerializer. It is used to serialize the value.
         redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return redisTemplate;
