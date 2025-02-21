@@ -6,10 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+// This annotation is used to handle exceptions globally across the application.
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(FormatException.class)
+    @ExceptionHandler(FormatException.class) // This annotation is used to handle the exception of type FormatException
     public ResponseEntity<String> handleFormatException(FormatException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
