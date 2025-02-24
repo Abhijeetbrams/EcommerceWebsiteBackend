@@ -23,7 +23,7 @@ class ProductControllerTest {
 //    @Autowired
 //    ProductController productController;
 //
-//    @MockitoBean
+//    @MockitoBean// To mock the service
 //    ProductService productService; // Inject the mocked service
 //
 //
@@ -39,6 +39,7 @@ class ProductControllerTest {
 //        expectedProduct.setCategory(null);
 //
 //        // Mocking the behavior of the ProductService
+
 //        when(productService.getProduct(1L)).thenReturn(expectedProduct);
 //
 //        // Act
