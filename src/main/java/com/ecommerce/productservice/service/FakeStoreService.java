@@ -66,7 +66,8 @@ public class FakeStoreService implements ProductService{
         // Here PRODUCTS is the MAP name and product_product_id is the key
         // We're storing the product in the Redis Cache
         redisTemplate.opsForHash().put("PRODUCTS","product_"+productId,productFromApi);
-        
+
+        // Returning the product fetched from the API
         return productFromApi;
     }
 
