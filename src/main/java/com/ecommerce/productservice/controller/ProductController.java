@@ -21,7 +21,8 @@ public class ProductController {
     ProductService productService;
 
     @Autowired
-    public ProductController(@Qualifier("FakeStoreService")ProductService productService) {
+    public ProductController(@Qualifier("FakeStoreService") // This is used to specify the name of the bean to be injected
+                                 ProductService productService) {
         this.productService = productService;
     }
 
