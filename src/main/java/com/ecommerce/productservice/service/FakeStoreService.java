@@ -47,7 +47,7 @@ public class FakeStoreService implements ProductService{
         // If the product is found in the Redis Cache then we will return the product from the Redis Cache.
         Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS","product_"+productId);
 
-
+        // If the product is found in the Redis Cache then we will return the product from the Redis Cache.
         if(product != null) {
             return product;
         }
