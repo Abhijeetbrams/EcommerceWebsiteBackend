@@ -101,6 +101,7 @@ public class ProductDBService implements ProductService{
                     if(value.getValue()==null){
                         throw new DataValidationException("Category Value cannot be Null");
                     }else{
+                        // Check if the Category is present in the DB or not
                         Optional<Category> category=categoryRepository.findById(value.getId());
                         if(category.isPresent()){
                             if(category.get().getValue() != value.getValue()){
