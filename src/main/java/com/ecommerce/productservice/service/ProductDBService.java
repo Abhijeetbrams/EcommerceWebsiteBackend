@@ -105,6 +105,7 @@ public class ProductDBService implements ProductService{
                         Optional<Category> category=categoryRepository.findById(value.getId());
                         if(category.isPresent()){
                             if(category.get().getValue() != value.getValue()){
+                                // If the Category Value is not equal to the Category DB then throw DataValidationException
                                 throw new DataValidationException("Category Value is not Equal to Category DB : "+ value.getValue());
                             }else{
                                 categoryRepository.save(value);
